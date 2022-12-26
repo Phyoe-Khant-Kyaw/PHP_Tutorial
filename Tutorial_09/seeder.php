@@ -11,4 +11,5 @@ for ($i = 0; $i < 60; $i++) {
     $sql = "insert into posts(title,content,is_published,created_datetime) values('" . $title . "','" . $content . "','" . $publish . "','" . $createDate . "')";
     $connection->exec($sql);
 }
+echo "seeder created successfully";
 ?>

@@ -13,7 +13,9 @@ include("vendor/autoload.php"); ?>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tutorial_09</title>
+    <link href="./css/reset.css" rel="stylesheet" type="text/css"/>
     <link href="vendor/twbs/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="./css/chart-style.css" rel="stylesheet" type="text/css"/>
 </head>
 
 <body>

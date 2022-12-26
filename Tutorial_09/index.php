@@ -3,11 +3,11 @@ include("include/header.php");
 $sql = "select * from posts";
 $res = $connection->prepare($sql);
 $res->execute([]);
-$data = $res->fetchAll(PDO::FETCH_ASSOC);
+$datas = $res->fetchAll(PDO::FETCH_ASSOC);
 $no = 1;
 ?>
-<section class="row mt-5">
-    <div class="col-10 offset-1">
+<section class="row mt-5 mx-2">
+    <div class="col-12">
         <a href="create.php" class="btn btn-primary">Create</a>
         <a href="weekly.php" class="btn btn-primary">Graph</a>
         <div class="card mt-3">
@@ -17,34 +17,42 @@ $no = 1;
             <div class="card-body">
                 <table class="table table-striped">
                     <thead>
-                        <tr>
+                        <tr class="text-center">
                             <th>ID</th>
                             <th>Title</th>
                             <th>Content</th>
                             <th>Is Published</th>
+                            <th>Created Date</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($data as $d) {
-                            if ($d['is_published'] == 1) {
+                        <?php foreach ($datas as $data) {
+                            if ($data['is_published'] == 1) {
                                 $publish = "Published";
                             } else {
                                 $publish = "Unpublished";
-                            }
+                            } 
                         ?>
                             <tr>
                                 <td><?php echo $no;
                                     $no++; ?></td>
-                                <td><?php echo $d['title'] ?></td>
-                                <td class="d-block text-truncate" style="max-width:600px;height:70px;"><?php echo $d['content'] ?></td>
+                                <td><?php echo $data['title'] ?></td>
+                                <td class="d-block text-truncate" style="max-width:500px;height:70px;"><?php echo $data['content'] ?></td>
                                 <td><?php echo $publish; ?></td>
-                                <td><a href="view.php?id=<?php echo $d['id']; ?>" class="btn btn-info">View</a></td>
-                                <td><a href="edit.php?id=<?php echo $d['id']; ?>" class="btn btn-success">Edit</a></td>
+                                <td><?php echo date('M d,Y',strtotime($data['created_datetime'])) ?></td>
                                 <td>
-                                    <form action="delete.php?id=<?php echo $d['id']; ?>" method="POST">
-                                        <input type="submit" value="Delete" onclick="return confirm('Are You Sure You Want To Delete?')" class="btn btn-danger" />
-                                    </form>
+                                    <a href="view.php?id=<?php echo $data['id']; ?>" class="btn btn-info d-inline">View</a>
+                                    <a href="edit.php?id=<?php echo $data['id']; ?>" class="btn btn-success d-inline">Edit</a>
+                                    <a href="#"  class="btn btn-danger d-inline modal-delete-btn" >Delete</a>
+                                <div class="modal-box">
+                                    <h4>Delete Box</h4>
+                                    <p>Are You Sure You Want To Delete?</p>
+                                    <div class="modal-option">
+                                      <button type="cancel" class="cancel-btn">Cancel</button>
+                                       <a href="delete.php?id=<?php echo $data['id']; ?>" class="box-delete text-decoration-none">Delete</a>
+                                    </div>
+                                </div>
                                 </td>
                             </tr>
                         <?php } ?>

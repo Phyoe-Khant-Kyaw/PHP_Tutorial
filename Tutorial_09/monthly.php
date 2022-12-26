@@ -20,7 +20,7 @@ for ($j = 0; $j < count($data); $j++) {
     <div class="col-8 offset-2">
         <div class="card">
             <div class="card-header d-flex justify-content-between">
-                <a href="weekly.php" class="btn btn-secondary">Back</a>
+                <a href="index.php" class="btn btn-secondary">Back</a>
                 <div>
                     <a href="weekly.php" class="btn btn-outline-secondary">Weekly</a>
                     <a href="monthly.php" class="btn btn-secondary">Monthly</a>

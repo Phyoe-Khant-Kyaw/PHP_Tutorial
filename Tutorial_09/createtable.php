@@ -7,14 +7,19 @@ $connection = new PDO("mysql:host=$serverName;dbname=$dbName", $userName, $passw
 if ($connection) {
     $sql = "CREATE TABLE posts(
     id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(255),
+    title VARCHAR(255) NOT NULL,
     content TEXT NULL,
     is_published BOOLEAN,
     created_datetime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_datetime TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    updated_datetime TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
   )";
-    $connection->prepare($sql);
-    echo "Posts Table Created Successfully";
+     if ($sql) {
+      $res = $connection->prepare($sql);
+      $res->execute([]);
+      echo "Posts Table Created Successfully";
+  } else {
+      echo "Sql wrong";
+  }
 } else {
     echo "Connection Problem"; 
 }

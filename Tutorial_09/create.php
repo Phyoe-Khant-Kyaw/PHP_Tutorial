@@ -1,17 +1,22 @@
 <?php
 include("include/header.php");
+$errTitle = "";
 if (isset($_POST['create'])) {
+    if($_POST['title']=="") {
+        $errTitle = "Title is required!!!";
+    } else {
     $sql = "insert into posts(title,content,is_published) values(?,?,?)";
     $title = $_POST['title'];
     $content = $_POST['content'];
     if ($_POST['published'][0]) {
-        $publish = $_POST['published'][0];
+        $publish = $_POST['published'][0]; 
     } else {
         $publish = 0;
     }
     $res = $connection->prepare($sql);
     $res->execute([$title, $content, $publish]);
     header("Location:index.php");
+}
 }
 ?>
 <section class="row mt-5">
@@ -25,6 +30,7 @@ if (isset($_POST['create'])) {
                     <div class="form-group mb-3">
                         <label>Title</label><br />
                         <input type="text" name="title" placeholder="name@example.com" class="form-control" />
+                        <small class="text-danger"><?php echo $errTitle;?></small>
                     </div>
                     <div class="form-group mb-3">
                         <label>Content</label><br />
